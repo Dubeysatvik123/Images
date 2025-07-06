@@ -1,0 +1,1202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Satvik Dubey - DevOps & AI Portfolio</title>
+  <!-- Tailwind CSS and Libraries -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <!-- Enhanced Styles -->
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      background: radial-gradient(ellipse at top, #0f0715 0%, #000000 100%);
+      color: #ffffff;
+      font-family: 'Inter', sans-serif;
+      overflow-x: hidden;
+      scroll-behavior: smooth;
+      line-height: 1.6;
+    }
+    
+    /* Enhanced Gradient Animations */
+    .hero-gradient {
+      background: linear-gradient(135deg, #667eea, #764ba2, #f093fb, #f5576c, #4facfe, #00f2fe);
+      background-size: 400% 400%;
+      animation: gradientShift 8s ease infinite;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    
+    @keyframes gradientShift {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+    
+    .glass-effect {
+      background: rgba(255, 255, 255, 0.08);
+      backdrop-filter: blur(20px);
+      border-radius: 24px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    }
+    
+    .neon-glow {
+      box-shadow: 0 0 20px rgba(102, 126, 234, 0.3);
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+    
+    .neon-glow:hover {
+      box-shadow: 0 0 40px rgba(102, 126, 234, 0.6), 0 0 80px rgba(102, 126, 234, 0.3);
+      transform: translateY(-8px) scale(1.02);
+    }
+    
+    .floating-element {
+      animation: float 6s ease-in-out infinite;
+    }
+    
+    @keyframes float {
+      0%, 100% { transform: translateY(0) rotate(0deg); }
+      50% { transform: translateY(-20px) rotate(2deg); }
+    }
+    
+    .pulse-animation {
+      animation: pulse 2s infinite;
+    }
+    
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.7; }
+    }
+    
+    .slide-in-left {
+      animation: slideInLeft 0.8s ease-out;
+    }
+    
+    @keyframes slideInLeft {
+      from { transform: translateX(-100%); opacity: 0; }
+      to { transform: translateX(0); opacity: 1; }
+    }
+    
+    .slide-in-right {
+      animation: slideInRight 0.8s ease-out;
+    }
+    
+    @keyframes slideInRight {
+      from { transform: translateX(100%); opacity: 0; }
+      to { transform: translateX(0); opacity: 1; }
+    }
+    
+    .scale-in {
+      animation: scaleIn 0.6s ease-out;
+    }
+    
+    @keyframes scaleIn {
+      from { transform: scale(0.8); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+    
+    /* Enhanced Sidebar */
+    .sidebar {
+      background: linear-gradient(180deg, 
+        rgba(15, 7, 21, 0.95) 0%, 
+        rgba(10, 5, 15, 0.98) 50%, 
+        rgba(5, 2, 10, 0.99) 100%);
+      backdrop-filter: blur(20px);
+      border-right: 1px solid rgba(102, 126, 234, 0.2);
+      box-shadow: 4px 0 24px rgba(0, 0, 0, 0.5);
+      transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+    
+    .sidebar-item {
+      position: relative;
+      display: flex;
+      align-items: center;
+      padding: 12px 15px;
+      margin: 8px 12px;
+      border-radius: 16px;
+      transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      cursor: pointer;
+      overflow: hidden;
+    }
+    
+    .sidebar-item::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(102, 126, 234, 0.1), transparent);
+      transition: left 0.5s ease;
+    }
+    
+    .sidebar-item:hover::before {
+      left: 100%;
+    }
+    
+    .sidebar-item:hover {
+      background: linear-gradient(135deg, rgba(102, 126, 234, 0.15), rgba(118, 75, 162, 0.15));
+      transform: translateX(8px);
+      border-left: 3px solid #4facfe;
+      box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
+    }
+    
+    .sidebar-item.active {
+      background: linear-gradient(135deg, rgba(102, 126, 234, 0.2), rgba(118, 75, 162, 0.2));
+      border-left: 3px solid #4facfe;
+      transform: translateX(8px);
+    }
+    
+    .sidebar-icon {
+      width: 20px;
+      height: 20px;
+      margin-right: 16px;
+      transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      filter: drop-shadow(0 0 8px rgba(102, 126, 234, 0.3));
+    }
+    
+    .sidebar-item:hover .sidebar-icon {
+      transform: scale(1.2) rotate(5deg);
+      filter: drop-shadow(0 0 12px rgba(102, 126, 234, 0.8));
+    }
+    
+    .sidebar-text {
+      font-family: 'Inter', sans-serif;
+      font-weight: 500;
+      font-size: 16px;
+      letter-spacing: 0.02em;
+      transition: all 0.3s ease;
+    }
+    
+    .sidebar-item:hover .sidebar-text {
+      color: #4facfe;
+      transform: translateX(4px);
+    }
+    
+    /* Enhanced Toggle Button */
+    .toggle-btn {
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      width: 56px;
+      height: 56px;
+      border-radius: 16px;
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      border: none;
+      color: white;
+      font-size: 18px;
+      cursor: pointer;
+      transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .toggle-btn:hover {
+      transform: scale(1.1) rotate(180deg);
+      box-shadow: 0 12px 35px rgba(102, 126, 234, 0.6);
+    }
+    
+    /* Enhanced Typography */
+    .heading-primary {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      line-height: 1.1;
+    }
+    
+    .heading-secondary {
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      line-height: 1.2;
+    }
+    
+    .text-body {
+      font-family: 'Inter', sans-serif;
+      font-weight: 400;
+      line-height: 1.7;
+      letter-spacing: 0.01em;
+    }
+    
+    .text-accent {
+      font-family: 'Inter', sans-serif;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+    }
+    
+    /* Enhanced Card Animations */
+    .card-hover {
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .card-hover::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(45deg, transparent, rgba(102, 126, 234, 0.1), transparent);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+    
+    .card-hover:hover::before {
+      opacity: 1;
+    }
+    
+    .card-hover:hover {
+      transform: translateY(-10px) scale(1.03);
+      box-shadow: 0 20px 40px rgba(102, 126, 234, 0.3);
+    }
+    
+    /* Progress Bar Animation */
+    .progress-bar {
+      background: linear-gradient(90deg, #667eea, #764ba2, #f093fb);
+      background-size: 200% 100%;
+      animation: progressGlow 3s ease infinite;
+    }
+    
+    @keyframes progressGlow {
+      0%, 100% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+    }
+    
+    /* Timeline Enhancement */
+    .timeline-line {
+      position: absolute;
+      left: 20px;
+      top: 0;
+      bottom: 0;
+      width: 3px;
+      background: linear-gradient(180deg, #667eea, #764ba2, #f093fb);
+      border-radius: 2px;
+      animation: timelineGlow 4s ease infinite;
+    }
+    
+    @keyframes timelineGlow {
+      0%, 100% { box-shadow: 0 0 10px rgba(102, 126, 234, 0.5); }
+      50% { box-shadow: 0 0 20px rgba(102, 126, 234, 0.8); }
+    }
+    
+    .timeline-dot {
+      position: absolute;
+      left: 14px;
+      top: 10px;
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      box-shadow: 0 0 20px rgba(102, 126, 234, 0.8);
+      border: 2px solid rgba(255, 255, 255, 0.2);
+      animation: dotPulse 2s infinite;
+    }
+    
+    @keyframes dotPulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.2); }
+    }
+    
+    /* Fade In Animation */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275), transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+    
+    .fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    
+    /* Parallax Background */
+    .parallax-bg {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+    }
+    
+    /* Mobile Responsive */
+    @media (max-width: 768px) {
+      .sidebar {
+        transform: translateX(-100%);
+        transition: transform 0.3s ease;
+      }
+      
+      .sidebar.open {
+        transform: translateX(0);
+      }
+      
+      .toggle-btn {
+        left: 16px;
+        top: 16px;
+        width: 48px;
+        height: 48px;
+      }
+    }
+    
+    /* Enhanced Scrollbar */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+    
+    ::-webkit-scrollbar-track {
+      background: rgba(255, 255, 255, 0.1);
+    }
+    
+    ::-webkit-scrollbar-thumb {
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      border-radius: 4px;
+    }
+    
+    ::-webkit-scrollbar-thumb:hover {
+      background: linear-gradient(135deg, #4facfe, #00f2fe);
+    }
+    
+    /* Project Card Enhancements */
+    .project-card {
+      background: linear-gradient(135deg, rgba(102, 126, 234, 0.1), rgba(118, 75, 162, 0.1));
+      border: 1px solid rgba(102, 126, 234, 0.2);
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .project-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(102, 126, 234, 0.1), transparent);
+      transition: left 0.6s ease;
+    }
+    
+    .project-card:hover::before {
+      left: 100%;
+    }
+    
+    .project-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 35px rgba(102, 126, 234, 0.3);
+      border-color: rgba(102, 126, 234, 0.4);
+    }
+    
+    /* Achievement Badge Animation */
+    .achievement-badge {
+      transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .achievement-badge::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+    
+    .achievement-badge:hover::before {
+      opacity: 1;
+    }
+    
+    .achievement-badge:hover {
+      transform: scale(1.05) rotate(2deg);
+      box-shadow: 0 10px 25px rgba(102, 126, 234, 0.3);
+    }
+  </style>
+</head>
+<body>
+  <div id="root"></div>
+  
+  <script type="text/babel">
+    const { useEffect, useRef, useState } = React;
+
+    // Enhanced Side Navigation Component
+    const SideNav = ({ activeSection, setActiveSection }) => {
+      const [open, setOpen] = useState(false);
+      const menuItems = [
+        { label: 'Home', icon: 'Home', href: '#home', emoji: '🏠' },
+        { label: 'About', icon: 'User', href: '#about', emoji: '👨‍💻' },
+        { label: 'Skills', icon: 'Code', href: '#skills', emoji: '⚡' },
+        { label: 'Experience', icon: 'Briefcase', href: '#experience', emoji: '💼' },
+        { label: 'Projects', icon: 'FolderOpen', href: '#projects', emoji: '🚀' },
+        { label: 'Achievements', icon: 'Award', href: '#achievements', emoji: '🏆' },
+        { label: 'Contact', icon: 'Mail', href: '#contact', emoji: '📧' },
+      ];
+
+      useEffect(() => {
+        if (window.lucide) lucide.createIcons();
+      }, [open]);
+
+      const handleMenuClick = (href, label) => {
+        setActiveSection(label);
+        document.querySelector(href)?.scrollIntoView({ behavior: 'smooth' });
+        if (window.innerWidth <= 768) {
+          setOpen(false);
+        }
+      };
+
+      return (
+        <>
+          <div className={`fixed top-0 left-0 h-screen z-50 transition-all duration-500 ease-in-out ${open ? 'w-80' : 'w-20'} sidebar ${open ? 'open' : ''}`}>
+            <div className="flex flex-col h-full">
+              <div className="p-6 flex items-center justify-center border-b border-gray-700/30">
+                {open && (
+                  <div className="text-center scale-in">
+                    <h1 className="text-2xl font-bold hero-gradient heading-primary">
+                      Satvik Dubey
+                    </h1>
+                    <p className="text-sm text-gray-400 mt-1">DevOps & AI Engineer</p>
+                  </div>
+                )}
+                {!open && (
+                  <div className="w-10 h-10 rounded-full bg-gradient-to-r from-blue-500 to-purple-500 flex items-center justify-center pulse-animation">
+                    <span className="text-white font-bold">S</span>
+                  </div>
+                )}
+              </div>
+              
+              <nav className="flex-1 px-2 py-8 space-y-2">
+                {menuItems.map(({ label, icon, href, emoji }) => (
+                  <div
+                    key={label}
+                    onClick={() => handleMenuClick(href, label)}
+                    className={`sidebar-item ${activeSection === label ? 'active' : ''}`}
+                  >
+                    <div className="sidebar-icon">
+                      {open ? (
+                        <span className="text-2xl">{emoji}</span>
+                      ) : (
+                        <i data-lucide={icon} className="w-6 h-6"></i>
+                      )}
+                    </div>
+                    {open && <span className="sidebar-text">{label}</span>}
+                  </div>
+                ))}
+              </nav>
+              
+              {open && (
+                <div className="p-6 border-t border-gray-700/30">
+                  <div className="text-center slide-in-left">
+                    <div className="flex justify-center items-center space-x-2 mb-4">
+                      <div className="w-3 h-3 bg-green-500 rounded-full animate-pulse"></div>
+                      <span className="text-xs text-gray-400">Available for projects</span>
+                    </div>
+                    <p className="text-xs text-gray-500">Building the future, one commit at a time</p>
+                  </div>
+                </div>
+              )}
+            </div>
+          </div>
+          
+          <button
+            className="toggle-btn"
+            onClick={() => setOpen(!open)}
+            title="Toggle Menu"
+          >
+            <i data-lucide={open ? 'X' : 'Menu'} className="w-6 h-6"></i>
+          </button>
+        </>
+      );
+    };
+
+    // Enhanced Header Component
+    const Header = () => (
+      <header id="home" className="min-h-screen flex flex-col items-center justify-center text-center px-4 pt-20">
+        <div className="floating-element">
+          <img 
+            src="https://raw.githubusercontent.com/Dubeysatvik123/Images/main/Satvik.jpg" 
+            className="w-40 sm:w-48 h-40 sm:h-48 rounded-full mb-8 profile-image border-4 border-gradient-to-r from-blue-500 to-purple-500" 
+            alt="Satvik Dubey"
+          />
+        </div>
+        <h1 className="text-5xl sm:text-7xl font-bold hero-gradient heading-primary mb-4 slide-in-left">
+          Satvik Dubey
+        </h1>
+        <p className="text-xl sm:text-2xl text-gray-300 mb-6 text-accent slide-in-right">
+          DevOps Engineer & AI Developer
+        </p>
+        <div className="text-lg text-gray-400 max-w-2xl text-body scale-in">
+          <p className="mb-4">Crafting scalable systems and intelligent solutions</p>
+          <div className="flex flex-wrap justify-center gap-4 text-sm">
+            <span className="bg-gradient-to-r from-blue-500 to-purple-500 px-3 py-1 rounded-full">☁️ Cloud Native</span>
+            <span className="bg-gradient-to-r from-green-500 to-teal-500 px-3 py-1 rounded-full">🤖 AI/ML</span>
+            <span className="bg-gradient-to-r from-orange-500 to-red-500 px-3 py-1 rounded-full">🔄 DevOps</span>
+          </div>
+        </div>
+      </header>
+    );
+
+    // Enhanced About Section
+    const AboutSection = () => (
+      <section id="about" className="py-20 px-4">
+        <div className="max-w-6xl mx-auto">
+          <div className="text-center mb-16">
+            <h2 className="text-5xl font-bold hero-gradient mb-6 heading-secondary">About Me</h2>
+            <div className="w-24 h-1 bg-gradient-to-r from-blue-500 to-purple-500 mx-auto mb-8"></div>
+          </div>
+          
+          <div className="grid md:grid-cols-2 gap-12 items-center">
+            <div className="glass-effect p-8 rounded-3xl neon-glow card-hover">
+              <h3 className="text-2xl font-bold mb-6 text-blue-400 heading-secondary">My Journey</h3>
+              <p className="text-gray-300 mb-6 text-body">
+                I am a passionate Computer Science Engineer with extensive experience in DevOps, Python scripting, AI/ML systems, and automation tools. I specialize in building scalable, robust systems using cutting-edge technologies.
+              </p>
+              <p className="text-gray-300 mb-6 text-body">
+                My expertise spans across cloud platforms, containerization, CI/CD pipelines, and machine learning implementations. I thrive on solving complex problems and turning innovative ideas into reality.
+              </p>
+              <div className="flex flex-wrap gap-3 mt-4">
+                <span className="text-xs bg-blue-500/20 text-blue-300 px-3 py-1 rounded-full">🎓 B.Tech CSE</span>
+                <span className="text-xs bg-purple-500/20 text-purple-300 px-3 py-1 rounded-full">📍 Madhya Pradesh</span>
+                <span className="text-xs bg-green-500/20 text-green-300 px-3 py-1 rounded-full">🏆 Red Hat Ambassador</span>
+              </div>
+            </div>
+            
+            <div className="space-y-6">
+              {[
+                { skill: 'DevOps & Cloud', level: 95, icon: '☁️', color: 'from-blue-500 to-cyan-500' },
+                { skill: 'Python & AI/ML', level: 90, icon: '🐍', color: 'from-green-500 to-teal-500' },
+                { skill: 'Docker & Kubernetes', level: 85, icon: '🐳', color: 'from-purple-500 to-pink-500' },
+                { skill: 'CI/CD Pipelines', level: 92, icon: '🔄', color: 'from-orange-500 to-red-500' }
+              ].map((skill, index) => (
+                <div key={skill.skill} className="glass-effect p-6 rounded-2xl card-hover" style={{animationDelay: `${index * 0.1}s`}}>
+                  <div className="flex items-center justify-between mb-3">
+                    <span className="flex items-center text-accent">
+                      <span className="text-2xl mr-3">{skill.icon}</span>
+                      {skill.skill}
+                    </span>
+                    <span className="text-blue-400 font-bold">{skill.level}%</span>
+                  </div>
+                  <div className="w-full bg-gray-700 rounded-full h-3">
+                    <div 
+                      className={`bg-gradient-to-r ${skill.color} h-3 rounded-full transition-all duration-1000 progress-bar`}
+                      style={{ width: `${skill.level}%` }}
+                    ></div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+    );
+
+    // New Skills Section
+    const SkillsSection = () => {
+      const skillCategories = [
+        {
+          title: 'Programming & Frameworks',
+          icon: '💻',
+          skills: [
+            { name: 'Python', level: 95, icon: '🐍' },
+            { name: 'Bash/Shell', level: 88, icon: '⚡' },
+            { name: 'Flask/FastAPI', level: 85, icon: '🚀' },
+            { name: 'SQL', level: 80, icon: '🗃️' }
+          ]
+        },
+        {
+          title: 'DevOps & Cloud',
+          icon: '☁️',
+          skills: [
+            { name: 'Docker/Kubernetes', level: 90, icon: '🐳' },
+            { name: 'AWS/Azure', level: 85, icon: '☁️' },
+            { name: 'Jenkins/GitOps', level: 88, icon: '🔄' },
+            { name: 'Terraform', level: 82, icon: '🏗️' }
+          ]
+        },
+        {
+          title: 'AI & Machine Learning',
+          icon: '🤖',
+          skills: [
+            { name: 'LangChain', level: 88, icon: '🦜' },
+            { name: 'OpenAI/Claude', level: 85, icon: '🧠' },
+            { name: 'spaCy/Transformers', level: 80, icon: '🔤' },
+            { name: 'MLOps', level: 75, icon: '⚙️' }
+          ]
+        },
+        {
+          title: 'Monitoring & Databases',
+          icon: '📊',
+          skills: [
+            { name: 'Prometheus/Grafana', level: 85, icon: '📈' },
+            { name: 'MongoDB/PostgreSQL', level: 80, icon: '🗄️' },
+            { name: 'Redis/ElasticSearch', level: 78, icon: '🔍' },
+            { name: 'Kafka/RabbitMQ', level: 75, icon: '📡' }
+          ]
+        }
+      ];
+
+      return (
+        <section id="skills" className="py-20 px-4">
+          <div className="max-w-6xl mx-auto">
+            <div className="text-center mb-16">
+              <h2 className="text-5xl font-bold hero-gradient mb-6 heading-secondary">Skills & Expertise</h2>
+              <div className="w-24 h-1 bg-gradient-to-r from-blue-500 to-purple-500 mx-auto mb-8"></div>
+              <p className="text-gray-400 text-lg max-w-2xl mx-auto">
+                A comprehensive toolkit for building modern, scalable, and intelligent systems
+              </p>
+            </div>
+            
+            <div className="grid md:grid-cols-2 gap-8">
+              {skillCategories.map((category, categoryIndex) => (
+                <div key={category.title} className="glass-effect p-8 rounded-3xl neon-glow card-hover fade-in" style={{animationDelay: `${categoryIndex * 0.2}s`}}>
+                  <div className="flex items-center mb-6">
+                    <span className="text-3xl mr-4">{category.icon}</span>
+                    <h3 className="text-2xl font-bold text-blue-400 heading-secondary">{category.title}</h3>
+                  </div>
+                  <div className="space-y-4">
+                    {category.skills.map((skill, skillIndex) => (
+                      <div key={skill.name} className="flex items-center justify-between p-4 bg-gray-800/30 rounded-2xl hover:bg-gray-800/50 transition-all duration-300">
+                        <div className="flex items-center">
+                          <span className="text-2xl mr-3">{skill.icon}</span>
+                          <span className="text-accent">{skill.name}</span>
+                        </div>
+                        <div className="flex items-center space-x-3">
+                          <div className="w-24 bg-gray-700 rounded-full h-2">
+                            <div 
+                              className="bg-gradient-to-r from-blue-500 to-purple-500 h-2 rounded-full transition-all duration-1000 progress-bar"
+                              style={{ width: `${skill.level}%` }}
+                            ></div>
+                          </div>
+                          <span className="text-blue-400 font-bold text-sm">{skill.level}%</span>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+      );
+    };
+
+const ExperienceSection = () => {
+      const experiences = [
+        {
+          title: 'DevOps Intern',
+          company: 'NetLink Software Pvt. Ltd.',
+          period: 'September 2024 - October 2024',
+          description: 'Managed container orchestration and CI/CD pipeline automation for production environments in Mandideep.',
+          achievements: [
+            'Manage Docker Container clusters using docker compose',
+            'Creating Kafka-Zookeeper production Cluster',
+            'Managed CI/CD pipeline for end to end automation'
+          ],
+          tech: ['Docker', 'Docker Compose', 'Kafka', 'Zookeeper', 'CI/CD'],
+          icon: '🚀'
+        },
+        {
+          title: 'DevOps Intern',
+          company: 'Codtech',
+          period: 'September 2024 - October 2024',
+          description: 'Focused on automated deployment pipelines and infrastructure monitoring solutions in remote work environment.',
+          achievements: [
+            'Managed CI/CD pipelines for automated software deployment',
+            'Created Python and Bash scripts for system monitoring and automation',
+            'Troubleshooting infrastructure issues, minimizing system downtime'
+          ],
+          tech: ['Python', 'Bash', 'CI/CD', 'Infrastructure Monitoring', 'DevOps'],
+          icon: '⚙️'
+        },
+        {
+          title: 'AI/ML Developer Intern',
+          company: 'Internpe',
+          period: 'August 2024 - September 2024',
+          description: 'Developed and optimized machine learning models with automation and data analysis capabilities.',
+          achievements: [
+            'Built and optimized ML models with automation and scripting',
+            'Conducted data analysis using SQL for decision-making',
+            'Developed Python scripts for model deployment and monitoring'
+          ],
+          tech: ['Python', 'Machine Learning', 'SQL', 'Data Analysis', 'Model Deployment'],
+          icon: '🤖'
+        }
+      ];
+
+      return (
+        <section id="experience" className="py-20 px-4">
+          <div className="max-w-6xl mx-auto">
+            <div className="text-center mb-16">
+              <h2 className="text-5xl font-bold hero-gradient mb-6 heading-secondary">Experience</h2>
+              <div className="w-24 h-1 bg-gradient-to-r from-blue-500 to-purple-500 mx-auto mb-8"></div>
+              <p className="text-gray-400 text-lg max-w-2xl mx-auto">
+                Building innovative solutions and leading technical transformations
+              </p>
+            </div>
+            
+            <div className="relative">
+              <div className="timeline-line"></div>
+              <div className="space-y-12">
+                {experiences.map((exp, index) => (
+                  <div key={index} className="relative ml-16 fade-in" style={{animationDelay: `${index * 0.3}s`}}>
+                    <div className="timeline-dot"></div>
+                    <div className="glass-effect p-8 rounded-3xl neon-glow card-hover">
+                      <div className="flex items-start justify-between mb-6">
+                        <div className="flex items-center">
+                          <span className="text-3xl mr-4">{exp.icon}</span>
+                          <div>
+                            <h3 className="text-2xl font-bold text-blue-400 heading-secondary">{exp.title}</h3>
+                            <p className="text-lg text-purple-400 text-accent">{exp.company}</p>
+                          </div>
+                        </div>
+                        <span className="text-sm text-gray-400 bg-gray-800/50 px-4 py-2 rounded-full">
+                          {exp.period}
+                        </span>
+                      </div>
+                      
+                      <p className="text-gray-300 mb-6 text-body">{exp.description}</p>
+                      
+                      <div className="mb-6">
+                        <h4 className="text-lg font-semibold text-green-400 mb-3">Key Achievements:</h4>
+                        <ul className="space-y-2">
+                          {exp.achievements.map((achievement, i) => (
+                            <li key={i} className="flex items-start">
+                              <span className="text-green-400 mr-2 mt-1">✓</span>
+                              <span className="text-gray-300 text-body">{achievement}</span>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                      
+                      <div className="flex flex-wrap gap-2">
+                        {exp.tech.map((tech, i) => (
+                          <span key={i} className="text-xs bg-blue-500/20 text-blue-300 px-3 py-1 rounded-full">
+                            {tech}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </section>
+      );
+    };
+
+    // Enhanced Projects Section
+    const ProjectsSection = () => {
+      const projects = [
+        {
+          title: 'Skill Sadhana - Learning Management System',
+          description: 'Comprehensive Learning Management System for college students and faculty where faculty can share lectures and students can study, built with Frappe Framework and Python ORM.',
+          tech: ['Python', 'Frappe Framework', 'Python ORM', 'Backend Development'],
+          github: 'https://github.com/satvikdubey/skill-sadhana',
+          demo: 'https://skill-sadhana-demo.com',
+          image: 'https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=500&h=300&fit=crop',
+          features: ['Faculty lecture sharing', 'Student learning portal', 'Frappe Framework integration'],
+          icon: '📚'
+        },
+        {
+          title: 'AI Quiz Generator',
+          description: 'Advanced quiz generator for educational institutions leveraging LangChain with Groq Large Language Model (LLM), deployed on Streamlit cloud with robust DevOps architecture.',
+          tech: ['Python', 'LangChain', 'Groq LLM', 'Streamlit', 'DevOps'],
+          github: 'https://github.com/satvikdubey/ai-quiz-generator',
+          demo: 'https://ai-quiz-generator.streamlit.app',
+          image: 'https://images.unsplash.com/photo-1606868306217-dbf5046868d2?w=500&h=300&fit=crop',
+          features: ['AI-powered quiz generation', 'Educational institution focus', 'Cloud deployment'],
+          icon: '🤖'
+        },
+        {
+          title: 'Aira - The Prompt',
+          description: 'Advanced math problem solver and coding assistant leveraging Google GEMMA2 Large Language Model (LLM) with integrated AI-driven solution in robust DevOps architecture.',
+          tech: ['Python', 'Google GEMMA2', 'LLM', 'AI/ML', 'DevOps'],
+          github: 'https://github.com/satvikdubey/aira-prompt',
+          demo: 'https://aira-prompt-demo.com',
+          image: 'https://images.unsplash.com/photo-1677442136019-21780ecad995?w=500&h=300&fit=crop',
+          features: ['Math problem solving', 'Coding assistance', 'Google GEMMA2 integration'],
+          icon: '🧮'
+        },
+        {
+          title: 'DOX - Docker Automation Tool',
+          description: 'Automation tool for efficient Docker container management with intelligent parsing for user commands and dependency validation for seamless setup.',
+          tech: ['Docker', 'Python', 'Automation', 'DevOps', 'Container Management'],
+          github: 'https://github.com/satvikdubey/dox-docker-tool',
+          demo: 'https://dox-demo.com',
+          image: 'https://images.unsplash.com/photo-1605745341112-85968b19335a?w=500&h=300&fit=crop',
+          features: ['Docker container management', 'Intelligent command parsing', 'Dependency validation'],
+          icon: '🐳'
+        },
+        {
+          title: 'Nexus - AI Voice Assistant',
+          description: 'Python-based AI voice assistant using NLP and web scraping with implemented algorithms and integrated APIs for data extraction and processing.',
+          tech: ['Python', 'NLP', 'Web Scraping', 'AI', 'API Integration'],
+          github: 'https://github.com/satvikdubey/nexus-voice-assistant',
+          demo: 'https://nexus-demo.com',
+          image: 'https://images.unsplash.com/photo-1589254065878-42c9da997008?w=500&h=300&fit=crop',
+          features: ['Voice recognition', 'NLP processing', 'Web scraping capabilities'],
+          icon: '🎤'
+        }
+      ];
+
+      return (
+        <section id="projects" className="py-20 px-4">
+          <div className="max-w-6xl mx-auto">
+            <div className="text-center mb-16">
+              <h2 className="text-5xl font-bold hero-gradient mb-6 heading-secondary">Featured Projects</h2>
+              <div className="w-24 h-1 bg-gradient-to-r from-blue-500 to-purple-500 mx-auto mb-8"></div>
+              <p className="text-gray-400 text-lg max-w-2xl mx-auto">
+                Innovative solutions that showcase technical expertise and creative problem-solving
+              </p>
+            </div>
+            
+            <div className="grid md:grid-cols-2 gap-8">
+              {projects.map((project, index) => (
+                <div key={index} className="project-card glass-effect p-8 rounded-3xl card-hover fade-in" style={{animationDelay: `${index * 0.2}s`}}>
+                  <div className="flex items-center mb-6">
+                    <span className="text-3xl mr-4">{project.icon}</span>
+                    <h3 className="text-2xl font-bold text-blue-400 heading-secondary">{project.title}</h3>
+                  </div>
+                  
+                  <div className="mb-6">
+                    <img 
+                      src={project.image} 
+                      alt={project.title}
+                      className="w-full h-48 object-cover rounded-2xl mb-4 hover:scale-105 transition-transform duration-300"
+                    />
+                  </div>
+                  
+                  <p className="text-gray-300 mb-6 text-body">{project.description}</p>
+                  
+                  <div className="mb-6">
+                    <h4 className="text-lg font-semibold text-green-400 mb-3">Key Features:</h4>
+                    <ul className="space-y-2">
+                      {project.features.map((feature, i) => (
+                        <li key={i} className="flex items-start">
+                          <span className="text-green-400 mr-2 mt-1">✓</span>
+                          <span className="text-gray-300 text-sm">{feature}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                  
+                  <div className="flex flex-wrap gap-2 mb-6">
+                    {project.tech.map((tech, i) => (
+                      <span key={i} className="text-xs bg-purple-500/20 text-purple-300 px-3 py-1 rounded-full">
+                        {tech}
+                      </span>
+                    ))}
+                  </div>
+                  
+                  <div className="flex space-x-4">
+                    <a 
+                      href={project.github} 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      className="flex items-center space-x-2 bg-gray-800 hover:bg-gray-700 px-4 py-2 rounded-full transition-colors"
+                    >
+                      <i data-lucide="github" className="w-4 h-4"></i>
+                      <span className="text-sm">Code</span>
+                    </a>
+                    <a 
+                      href={project.demo} 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      className="flex items-center space-x-2 bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 px-4 py-2 rounded-full transition-colors"
+                    >
+                      <i data-lucide="external-link" className="w-4 h-4"></i>
+                      <span className="text-sm">Demo</span>
+                    </a>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+      );
+    };
+
+    // Enhanced Achievements Section
+    const AchievementsSection = () => {
+      const achievements = [
+        {
+          title: 'Red Hat Academy Campus Ambassador',
+          description: 'Conducted training and promoted Red Hat certifications as an official campus ambassador',
+          date: '2022 - 2025',
+          icon: '🏆',
+          color: 'from-red-500 to-orange-500'
+        },
+        {
+          title: 'Technical Club Coordinator',
+          description: 'Organized workshops on Linux administration and automation, leading technical initiatives',
+          date: 'Nov 2023 - May 2025',
+          icon: '⚡',
+          color: 'from-blue-500 to-cyan-500'
+        },
+        {
+          title: 'Computer Science Graduate',
+          description: 'B.Tech in Computer Science and Engineering from RGPV University, Bhopal with CGPA 7.64',
+          date: '2021 - 2025',
+          icon: '🎓',
+          color: 'from-purple-500 to-pink-500'
+        },
+        {
+          title: 'Multi-skilled Professional',
+          description: 'Expertise in Python, DevOps, AI/ML, and leadership with diverse technical contributions',
+          date: '2021-Present',
+          icon: '🌟',
+          color: 'from-green-500 to-teal-500'
+        }
+      ];
+
+      return (
+        <section id="achievements" className="py-20 px-4">
+          <div className="max-w-6xl mx-auto">
+            <div className="text-center mb-16">
+              <h2 className="text-5xl font-bold hero-gradient mb-6 heading-secondary">Achievements</h2>
+              <div className="w-24 h-1 bg-gradient-to-r from-blue-500 to-purple-500 mx-auto mb-8"></div>
+              <p className="text-gray-400 text-lg max-w-2xl mx-auto">
+                Recognition and milestones in my professional journey
+              </p>
+            </div>
+            
+            <div className="grid md:grid-cols-2 gap-8">
+              {achievements.map((achievement, index) => (
+                <div key={index} className="achievement-badge glass-effect p-8 rounded-3xl card-hover fade-in" style={{animationDelay: `${index * 0.2}s`}}>
+                  <div className="flex items-start space-x-4">
+                    <div className={`w-16 h-16 rounded-full bg-gradient-to-r ${achievement.color} flex items-center justify-center text-2xl`}>
+                      {achievement.icon}
+                    </div>
+                    <div className="flex-1">
+                      <div className="flex items-center justify-between mb-2">
+                        <h3 className="text-xl font-bold text-blue-400 heading-secondary">{achievement.title}</h3>
+                        <span className="text-sm text-gray-400 bg-gray-800/50 px-3 py-1 rounded-full">
+                          {achievement.date}
+                        </span>
+                      </div>
+                      <p className="text-gray-300 text-body">{achievement.description}</p>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+      );
+    };
+
+    // Enhanced Contact Section
+    const ContactSection = () => {
+      return (
+        <section id="contact" className="py-20 px-4">
+          <div className="max-w-6xl mx-auto">
+            <div className="text-center mb-16">
+              <h2 className="text-5xl font-bold hero-gradient mb-6 heading-secondary">Get In Touch</h2>
+              <div className="w-24 h-1 bg-gradient-to-r from-blue-500 to-purple-500 mx-auto mb-8"></div>
+              <p className="text-gray-400 text-lg max-w-2xl mx-auto">
+                Ready to collaborate on innovative projects or discuss opportunities
+              </p>
+            </div>
+            
+            <div className="flex justify-center">
+              <div className="glass-effect p-8 rounded-3xl neon-glow max-w-2xl w-full">
+                <h3 className="text-2xl font-bold text-blue-400 mb-6 heading-secondary text-center">Let's Connect</h3>
+                <p className="text-gray-300 mb-8 text-body text-center">
+                  I'm always excited to discuss new projects, innovative ideas, or opportunities to be part of your vision.
+                </p>
+                
+                <div className="space-y-6">
+                  <div className="flex items-center space-x-4">
+                    <div className="w-12 h-12 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full flex items-center justify-center">
+                      <i data-lucide="mail" className="w-6 h-6"></i>
+                    </div>
+                    <div>
+                      <p className="text-gray-400 text-sm">Email</p>
+                      <a href="mailto:satvikdubey268@gmail.com" className="text-white hover:text-blue-400 transition-colors">
+                        satvikdubey268@gmail.com
+                      </a>
+                    </div>
+                  </div>
+                  
+                  <div className="flex items-center space-x-4">
+                    <div className="w-12 h-12 bg-gradient-to-r from-green-500 to-teal-500 rounded-full flex items-center justify-center">
+                      <i data-lucide="phone" className="w-6 h-6"></i>
+                    </div>
+                    <div>
+                      <p className="text-gray-400 text-sm">Phone</p>
+                      <a href="tel:+917987285470" className="text-white hover:text-green-400 transition-colors">
+                        +91 7987285470
+                      </a>
+                    </div>
+                  </div>
+                  
+                  <div className="flex items-center space-x-4">
+                    <div className="w-12 h-12 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full flex items-center justify-center">
+                      <i data-lucide="map-pin" className="w-6 h-6"></i>
+                    </div>
+                    <div>
+                      <p className="text-gray-400 text-sm">Location</p>
+                      <p className="text-white">Gandhi Nagar, Itarsi, Madhya Pradesh, India</p>
+                    </div>
+                  </div>
+                </div>
+                
+                <div className="flex justify-center space-x-4 mt-8">
+                  <a href="https://github.com/satvikdubey" target="_blank" rel="noopener noreferrer" className="w-12 h-12 bg-gray-800 hover:bg-gray-700 rounded-full flex items-center justify-center transition-colors">
+                    <i data-lucide="github" className="w-6 h-6"></i>
+                  </a>
+                  <a href="https://linkedin.com/in/satvikdubey" target="_blank" rel="noopener noreferrer" className="w-12 h-12 bg-blue-600 hover:bg-blue-700 rounded-full flex items-center justify-center transition-colors">
+                    <i data-lucide="linkedin" className="w-6 h-6"></i>
+                  </a>
+                  <a href="https://twitter.com/satvikdubey" target="_blank" rel="noopener noreferrer" className="w-12 h-12 bg-sky-600 hover:bg-sky-700 rounded-full flex items-center justify-center transition-colors">
+                    <i data-lucide="twitter" className="w-6 h-6"></i>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      );
+    };
+
+ 
+
+    // Enhanced Footer
+    const Footer = () => (
+      <footer className="py-12 px-4 border-t border-gray-800">
+        <div className="max-w-6xl mx-auto">
+          <div className="text-center">
+            <div className="flex items-center justify-center space-x-4 mb-6">
+              <div className="w-12 h-12 rounded-full bg-gradient-to-r from-blue-500 to-purple-500 flex items-center justify-center">
+                <span className="text-white font-bold text-xl">S</span>
+              </div>
+              <div>
+                <h3 className="text-xl font-bold hero-gradient">Satvik Dubey</h3>
+                <p className="text-gray-400 text-sm">DevOps & AI Engineer</p>
+              </div>
+            </div>
+            
+            <div className="flex justify-center space-x-6 mb-8">
+              <a href="#home" className="text-gray-400 hover:text-white transition-colors">Home</a>
+              <a href="#about" className="text-gray-400 hover:text-white transition-colors">About</a>
+              <a href="#skills" className="text-gray-400 hover:text-white transition-colors">Skills</a>
+              <a href="#projects" className="text-gray-400 hover:text-white transition-colors">Projects</a>
+              <a href="#contact" className="text-gray-400 hover:text-white transition-colors">Contact</a>
+            </div>
+            
+            <div className="flex justify-center space-x-4 mb-8">
+              <a href="https://github.com/satvikdubey" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-white transition-colors">
+                <i data-lucide="github" className="w-5 h-5"></i>
+              </a>
+              <a href="https://linkedin.com/in/satvikdubey" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-white transition-colors">
+                <i data-lucide="linkedin" className="w-5 h-5"></i>
+              </a>
+              <a href="https://twitter.com/satvikdubey" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-white transition-colors">
+                <i data-lucide="twitter" className="w-5 h-5"></i>
+              </a>
+            </div>
+            
+            <p className="text-gray-500 text-sm">
+              © 2024 Satvik Dubey. Built with passion and modern web technologies.
+            </p>
+          </div>
+        </div>
+      </footer>
+    );
+
+    // Main App Component
+    const App = () => {
+      const [activeSection, setActiveSection] = useState('Home');
+
+      useEffect(() => {
+        if (window.lucide) {
+          lucide.createIcons();
+        }
+
+        // Intersection Observer for section tracking
+        const observer = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting) {
+                const sectionName = entry.target.id.charAt(0).toUpperCase() + entry.target.id.slice(1);
+                setActiveSection(sectionName);
+              }
+            });
+          },
+          { threshold: 0.6 }
+        );
+
+        const sections = document.querySelectorAll('section[id], header[id]');
+        sections.forEach((section) => observer.observe(section));
+
+        // Fade in animation observer
+        const fadeObserver = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+              }
+            });
+          },
+          { threshold: 0.1 }
+        );
+
+        const fadeElements = document.querySelectorAll('.fade-in');
+        fadeElements.forEach((element) => fadeObserver.observe(element));
+
+        return () => {
+          observer.disconnect();
+          fadeObserver.disconnect();
+        };
+      }, []);
+
+      return (
+        <div className="relative min-h-screen">
+          <div className="parallax-bg">
+            <div className="absolute inset-0 bg-gradient-to-br from-blue-900/20 via-purple-900/20 to-pink-900/20"></div>
+            <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(102,126,234,0.1),transparent_70%)]"></div>
+          </div>
+          
+          <SideNav activeSection={activeSection} setActiveSection={setActiveSection} />
+          
+          <main className="transition-all duration-300 ease-in-out ml-20">
+            <Header />
+            <AboutSection />
+            <SkillsSection />
+            <ExperienceSection />
+            <ProjectsSection />
+            <AchievementsSection />
+            <ContactSection />
+            <Footer />
+          </main>
+        </div>
+      );
+    };
+
+    ReactDOM.render(<App />, document.getElementById('root'));
+  </script>
+</body>
+</html>
